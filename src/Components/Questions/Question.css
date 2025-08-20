@@ -1,0 +1,27 @@
+.Option-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 equal columns */
+  gap: 1rem; /* spacing between buttons */
+  max-width: 500px; /* optional: keeps it centered & neat */
+  margin: 0 auto;
+}
+
+.OptionBtn {
+  padding: 12px 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.1s ease;
+}
+
+.OptionBtn:hover {
+  background-color: #2980b9;
+  transform: scale(1.03);
+}
+
+
+.OptionBtn:active {
+  transform: scale(0.97);
+}
