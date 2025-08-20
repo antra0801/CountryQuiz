@@ -1,56 +1,83 @@
 import { useState } from "react";
 import { useCountries } from "../../Context/CountriesApi"
 import Question from "../Questions/Question"
+import Congratulations from "../Congratulations/Congratulations";
+import "./Quiz.css"
 
-const Quiz =()=>{
-    const {countries} = useCountries();
-    const [questions, setQuestions] = useState([]);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [userAnswers, setUserAnswers] = useState([]);
-  const [showResult, setShowResult] = useState(false);
+const Quiz = () => {
+    const { countries } = useCountries();
+    // const [attemptedQuestions, setAttemptedQuestions] = useState([]);
+    const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [userAnswers, setUserAnswers] = useState([]);
+    // const [showResult, setShowResult] = useState(false);
 
 
-  const handleAnswer = (questionIndex, answerIndex) => {
-    // Update user's answer for the current question
-  };
+    const handleAttempt = (questionIndex, selectedAnswer, isCorrect) => {
+        setUserAnswers((prev) => {
+            const newAnswers = [...prev];
+            console.log(newAnswers);
 
-  const handleNextQuestion = (ques) => {
-    setCurrentQuestion(ques)
-    console.log(ques);
-    
-    // Move to the next question
-  };
+            newAnswers[questionIndex] = { selectedAnswer, isCorrect };
+            console.log(newAnswers);
 
-  const handlePrevQuestion = (ques) => {
-    // Move to the previous question
-    setCurrentQuestion(ques)
-    console.log();
-    
-  };
+            return newAnswers;
+        });
+    };
 
-  const handleFinishQuiz = () => {
-    // Calculate the quiz result and show the result page
+    const allAttempted = userAnswers.filter(Boolean).length === countries.length;
+    console.log(allAttempted);
 
-  };
 
-  
-  
-    return(
+    const score = userAnswers.filter((ans) => ans?.isCorrect).length;
+
+    //  move to specific question
+    const handleNextQuestion = (ques) => {
+        setCurrentQuestion(ques);
+    };
+
+    // const handlePrevQuestion = (ques) => {
+    //     setCurrentQuestion(ques);
+    // };
+
+    // // ✅ finish quiz → show result
+    // const handleFinishQuiz = () => {
+    //     setShowResult(true);
+    // };
+
+
+    return (
         <>
-        {/* <h1>Quiz Component</h1> */}
-        <button className="btnQues" onClick={()=>handleNextQuestion(0)}>1</button>
-        <button className="btnQues" onClick={()=>handleNextQuestion(1)}>2</button>
-        <button className="btnQues" onClick={()=>handleNextQuestion(2)}>3</button>
-        <button className="btnQues" onClick={()=>handleNextQuestion(3)}>4</button>
-        <button className="btnQues" onClick={()=>handleNextQuestion(4)}>5</button>
-        <button className="btnQues" onClick={()=>handleNextQuestion(5)}>6</button>
-        <button className="btnQues" onClick={()=>handleNextQuestion(6)}>7</button>
-        <button className="btnQues" onClick={()=>handleNextQuestion(7)}>8</button>
-        <button className="btnQues" onClick={()=>handleNextQuestion(8)}>9</button>
-        <button className="btnQues" onClick={()=>handleNextQuestion(9)}>10</button>
+            {/* <h1>Quiz Component</h1> */}
+            {!allAttempted ? <div>
+                {/* <button className="btnQues" onClick={() => handleNextQuestion(0)}>1</button>
+                <button className="btnQues" onClick={() => handleNextQuestion(1)}>2</button>
+                <button className="btnQues" onClick={() => handleNextQuestion(2)}>3</button>
+                <button className="btnQues" onClick={() => handleNextQuestion(3)}>4</button>
+                <button className="btnQues" onClick={() => handleNextQuestion(4)}>5</button>
+                <button className="btnQues" onClick={() => handleNextQuestion(5)}>6</button>
+                <button className="btnQues" onClick={() => handleNextQuestion(6)}>7</button>
+                <button className="btnQues" onClick={() => handleNextQuestion(7)}>8</button>
+                <button className="btnQues" onClick={() => handleNextQuestion(8)}>9</button>
+                <button className="btnQues" onClick={() => handleNextQuestion(9)}>10</button> */}
 
-        <Question ques={currentQuestion} allcountries={countries}/>
+                {countries.map((_, i) => (
+                    <button
+                        key={i}
+                        className={`btnQues ${userAnswers[i] ? "attempted" : ""} ${currentQuestion === i ? "active" : ""}`}
+                        onClick={() => handleNextQuestion(i)}
+                    >
+                        {i + 1}
+                    </button>
+                ))}
 
+                <Question 
+                ques={currentQuestion}
+                    onAttempt={(selectedans, iscorrect) =>
+                        handleAttempt(currentQuestion, selectedans, iscorrect)
+                    }
+                    attempted={userAnswers[currentQuestion]} />
+            </div> : <Congratulations score={score} totalQuestions={countries.length} />
+            }
 
         </>
     )

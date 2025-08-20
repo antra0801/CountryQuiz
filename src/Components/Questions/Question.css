@@ -1,3 +1,7 @@
+.question{
+    text-align: left;
+}
+
 .Option-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* 2 equal columns */
@@ -11,8 +15,9 @@
   font-size: 16px;
   border: none;
   border-radius: 8px;
-  color: white;
+  color: black;
   cursor: pointer;
+  text-align: left;
   transition: background 0.3s ease, transform 0.1s ease;
 }
 

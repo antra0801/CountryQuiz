@@ -1,8 +1,11 @@
 
-const Congratulations =()=>{
+const Congratulations =({score, totalQuestions})=>{
     return(
         <>
-        <h1>Congratulations Component</h1>
+        <h2>🎉 Congratulations! You finished the quiz 🎉</h2>
+        <p>
+          You scored <b>{score}</b> out of {totalQuestions}
+        </p>
         </>
     )
 }

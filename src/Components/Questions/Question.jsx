@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useCountries } from "../../Context/CountriesApi"
 import "./Question.css"
 
-const Question = ({ ques }) => {
+const Question = ({ ques, onAttempt, attempted }) => {
     const { countries } = useCountries()
 
     const [isCorrect, setIsCorrect] = useState(false)
@@ -64,14 +64,17 @@ const Question = ({ ques }) => {
 
     const handleAns = (userAns) => {
         if (!isAttempted) {
+            const correct = userAns === countries[ques].name.common
             setSelectedOption(userAns);
-            setIsCorrect(userAns === countries[ques].name.common);
+            setIsCorrect(correct);
             setIsAttempted(true);
+
+            onAttempt(userAns,correct)
         }
     };
 
 
-    console.log(options);
+    // console.log(options);
 
     return (
         <>
@@ -83,18 +86,26 @@ const Question = ({ ques }) => {
                 })
             } */}
 
-            <h3>Which Country does this <img src={countries[ques].flags.png} alt="flag" height="20px" width="25px" /> belongs to? </h3>
+            <h3 className="question">{ques + 1}. Which Country does this <img 
+                 src={countries[ques].flags.png} 
+                 alt="flag" 
+                 height="20px" 
+                 width="25px" />  belongs to? </h3>
 
             <div className="Option-grid">
 
                 {
                     options.map((op, idx) => {
                         const isSelected = selectedOption === op.name.common; // ✅ track which was clicked
+
                         return (
                             <button
                                 key={idx}
                                 className="OptionBtn"
-                                onClick={() => handleAns(op.name.common)}
+                                onClick={() => {
+                                    // onAttempt(op.name.common, isSelected)
+                                    handleAns(op.name.common)
+                                }}
                             >
                                 {idx + 1}. {op.name.common}{" "}
                                 {isAttempted && isSelected && (isCorrect ? "✅" : "❌")}
@@ -111,4 +122,3 @@ const Question = ({ ques }) => {
 }
 
 export default Question
-

@@ -1,0 +1,18 @@
+.btnQues {
+  padding: 8px 12px;
+  margin: 4px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+.btnQues.attempted {
+  background-color: #d1f7c4; /* ✅ green shade for attempted */
+  border-color: #4caf50;
+}
+
+.btnQues.active {
+  background-color: #90caf9; /* ✅ blue for current question */
+  border-color: #2196f3;
+}
