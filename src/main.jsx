@@ -6,9 +6,8 @@ import ContextProvider, { APIContext } from './Context/CountriesApi.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ContextProvider>
-
+    {/* <ContextProvider> */}
       <App />
-    </ContextProvider>
+    {/* </ContextProvider> */}
   </StrictMode>,
 )

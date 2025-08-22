@@ -1,16 +1,11 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios';
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
 import Quiz from './Components/Quiz/Quiz';
-import { useCountries } from './Context/CountriesApi';
 
 
 function App() {
 
-  // console.log(countries.data);
-  
+  // console.log(countries.data);  
 
   return (
     <div>

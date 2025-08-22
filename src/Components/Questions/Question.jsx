@@ -2,8 +2,8 @@ import { useEffect, useState } from "react"
 import { useCountries } from "../../Context/CountriesApi"
 import "./Question.css"
 
-const Question = ({ ques, onAttempt, attempted }) => {
-    const { countries } = useCountries()
+const Question = ({ countries, ques, onAttempt, attempted }) => {
+    // const { countries } = useCountries()
 
     const [isCorrect, setIsCorrect] = useState(false)
     const [isAttempted, setIsAttempted] = useState(false)
